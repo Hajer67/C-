@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35325.158
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormationC_Hajer", "FormationC_Hajer.csproj", "{4609DBF0-60EF-4DA0-B26D-11807A596747}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {621A52FA-8BE3-4653-ACA0-D4B7CDC763C5}
+	EndGlobalSection
+EndGlobal

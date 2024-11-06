@@ -13,10 +13,17 @@ namespace FormationC_Hajer
             BasicOperation(3, 4, '+');
             BasicOperation(3, 0, '/');
             BasicOperation(3, 4, 'L');
+
             Console.WriteLine(" ");
+
             IntegerDivision(12, 4);
             IntegerDivision(13, 4);
             IntegerDivision(12, 0);
+
+            Console.WriteLine(" ");
+
+            Pow(5, 2);
+            Pow(5, -2);
 
             Console.ReadKey();
         }
@@ -65,12 +72,12 @@ namespace FormationC_Hajer
         static void IntegerDivision(int a, int b)
         {
 
-            if (b == 0) 
+            if (b == 0)
             {
                 Console.WriteLine($"{a} : {b} = opération invalide.");
             }
 
-            else 
+            else
             {
                 int q = a / b;
                 int r = a % b;
@@ -105,17 +112,17 @@ namespace FormationC_Hajer
             {
                 résultat = a ^ b;
 
-            
+
                 {
-                    Console.WriteLine($" {a} ^ {b} = {résultat} ");
+                    Console.WriteLine($"{a} ^ {b} = {résultat} ");
                 }
 
 
             }
-
-
-
-
+        }
     }
+        
 }
+
+
 

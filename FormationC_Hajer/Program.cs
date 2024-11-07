@@ -284,8 +284,56 @@ namespace FormationC_Hajer
 
         }
 
-        
+      // ------------------------ SERIE II --------------------------- //
 
+      // EXERCICE I - RECHERCHE D'UN ELEMENT
+
+        // Recherche linéaire :
+        int LinearSearch(int [] tableau, int valeur)
+        {
+            for (int i = 0; i < tableau.Length; i++)
+            {
+                if (valeur == tableau[i])
+                {
+                    return i;
+                }
+            
+            }
+            return -1;
+
+        }
+
+        // Recherche dichotomique :
+
+        int BinarySearch(int [] tableau, int valeur)
+        {
+            int Bsup = tableau [0];
+            int Binf = tableau [tableau.Length];
+
+            while (Bsup < Binf )
+            {
+                int milieu = tableau.Length / 2;
+                if ( valeur == tableau [milieu] )
+                {
+                    return milieu;
+                }
+
+                else if ( valeur < tableau[milieu] )
+                {
+                    
+
+                }
+
+                else if ( valeur > tableau.Length / 2 )
+                {
+
+
+                }
+           
+            }
+
+
+        }
 
 
 

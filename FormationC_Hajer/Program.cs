@@ -54,6 +54,17 @@ namespace FormationC_Hajer
             Console.WriteLine(" ");
             PyramidConstruction(10, false);
 
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Exercice 4 - Factorielle ");
+            Console.WriteLine(" ");
+
+            Console.WriteLine($" {5}! = {FactorialIt(5)} ");
+            Console.WriteLine(" ");
+            Console.WriteLine($" {5}! = {FactorialRec(5)} ");
+
+
             Console.ReadKey();
 
         }
@@ -238,15 +249,42 @@ namespace FormationC_Hajer
             }
 
 
+        }
 
+        // EXERCICE IV - FACTORIELLE
 
+        // Méthode itérative
+        static int FactorialIt(int n)
+        {
+            int F = 1;
 
+            if (n == 0)
+            {
+                return 1;
+
+            }
+
+            for (int i = 1; i <= n ; i++)
+            {
+                F *= i;
+            }
+            return F;
 
         }
 
+        // Méthode récursive
 
+        static int FactorialRec(int n)
+        {
+            if (n == 0 || n == 1)
+            {
+                return 1;
+            }
+            return n * FactorialRec(n - 1);     
 
+        }
 
+        
 
 
 

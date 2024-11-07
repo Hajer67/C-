@@ -34,8 +34,8 @@ namespace FormationC_Hajer
             Pow(5, -2);
 
             Console.WriteLine(" ");
-            Console.WriteLine("Exercice 2 - Horloge parlante ");
             Console.WriteLine(" ");
+            Console.WriteLine("Exercice 2 - Horloge parlante ");
             Console.WriteLine(" ");
 
             GoodDay(1);
@@ -43,9 +43,19 @@ namespace FormationC_Hajer
             GoodDay(12);
             GoodDay(15);
             GoodDay(20);
-            GoodDay(24);
+            GoodDay(25);
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Exercice 3 - Construction pyramide ");
+            Console.WriteLine(" ");
+
+            PyramidConstruction(10, true);
+            Console.WriteLine(" ");
+            PyramidConstruction(10, false);
 
             Console.ReadKey();
+
         }
 
         // EXERCICE I - OPERATIONS ELEMENTAIRES
@@ -185,6 +195,57 @@ namespace FormationC_Hajer
             }
 
         }
+
+        // EXERCICE III - CONSTRUCTION D'UNE PYRAMIDE
+
+        static void PyramidConstruction(int n, bool isSmooth)
+        {
+
+            for (int j = 0; j < n; j++)
+            {
+                for (int i = 0; i <= (2 * n +1); i++)
+                {
+                    if (i < (n - j))
+                    {
+                        Console.Write(" ");
+                    }
+                    
+                    else if (i >= (n -j) && i <= (n +j))
+                    {
+                        if (!isSmooth)
+                        {
+                            if (j % 2 == 1)
+                            {
+                                Console.Write("+");
+                            }
+                            
+                            else
+                            {
+                                Console.Write("-");
+                            }
+                        }
+
+                        else
+                        {
+                            Console.Write("+");
+                        }
+
+                    }
+
+                }
+                Console.WriteLine();
+
+            }
+
+
+
+
+
+
+        }
+
+
+
 
 
 

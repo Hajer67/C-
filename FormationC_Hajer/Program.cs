@@ -12,6 +12,9 @@ namespace FormationC_Hajer
 
         static void Main(string[] args)
         {
+            Console.WriteLine("SERIE I ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
             Console.WriteLine("Exercice 1 - Opérations élémentaires ");
             Console.WriteLine(" ");
 
@@ -65,9 +68,38 @@ namespace FormationC_Hajer
             Console.WriteLine($" {5}! = {FactorialRec(5)} ");
 
 
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("SERIE II ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Exercice 1 - Recherche d'un élément ");
+            Console.WriteLine(" ");
+
+            int[] tableau = new int[] { -7, -5, -3, 0, 1, 2, 3, 4, 10};
+            for (int i = 0; i < tableau.Length; i++)
+            {
+                Console.Write(tableau[i] + " ");
+            }
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Recherche linéaire : ");
+            Console.WriteLine($" {2} --> indice : {LinearSearch(tableau, 2)} ");
+            Console.WriteLine($" {8} --> non trouvé : {LinearSearch(tableau, 8)} ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Recherche dichotomique : ");
+            Console.WriteLine($" {2} --> indice : {BinarySearch(tableau, 2)} ");
+            Console.WriteLine($" {8} --> non trouvé : {BinarySearch(tableau, 8)} ");
+
+
+
+
             Console.ReadKey();
 
         }
+
+        // ------------------------ SERIE I --------------------------- //
 
         // EXERCICE I - OPERATIONS ELEMENTAIRES
 
@@ -75,7 +107,7 @@ namespace FormationC_Hajer
         {
             // Opérations de base : 
             int r;
-            //char operateur = { +, -, *,/};
+            // Operateurs = { +, -, *,/};
             switch (operateur)
             {
                 case '+':
@@ -289,49 +321,57 @@ namespace FormationC_Hajer
       // EXERCICE I - RECHERCHE D'UN ELEMENT
 
         // Recherche linéaire :
-        int LinearSearch(int [] tableau, int valeur)
+        static int LinearSearch(int [] tableau, int valeur)
         {
             for (int i = 0; i < tableau.Length; i++)
             {
                 if (valeur == tableau[i])
                 {
-                    return i;
+                    return i;   // Valeur trouvée
                 }
             
             }
-            return -1;
+            return -1;   // Valeur non trouvée
 
         }
 
         // Recherche dichotomique :
 
-        int BinarySearch(int [] tableau, int valeur)
+        static int BinarySearch(int [] tableau, int valeur)
         {
-            int Bsup = tableau [0];
-            int Binf = tableau [tableau.Length];
+            int Igauche = 0;
+            int Idroite = tableau.Length - 1;
+            int milieu = ((Igauche + Idroite) / 2);
 
-            while (Bsup < Binf )
+            while (Igauche <= Idroite )
             {
-                int milieu = tableau.Length / 2;
+                milieu = ((Igauche + Idroite) / 2);
+
                 if ( valeur == tableau [milieu] )
                 {
-                    return milieu;
+                    return milieu;  // Valeur trouvée
                 }
 
-                else if ( valeur < tableau[milieu] )
+                else if ( valeur < tableau [milieu] )
                 {
-                    
+                    Idroite = milieu - 1;
 
                 }
 
-                else if ( valeur > tableau.Length / 2 )
+                else if ( valeur > tableau [milieu] )
                 {
-
-
+                    Igauche = milieu + 1;
+                    milieu = ((Igauche + Idroite) / 2);
                 }
-           
+                
+                else
+                {
+                    return -1;   // Valeur non trouvée
+                }
+            
             }
 
+            return -1;   // Valeur non trouvée
 
         }
 

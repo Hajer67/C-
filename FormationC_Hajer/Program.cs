@@ -92,8 +92,33 @@ namespace FormationC_Hajer
             Console.WriteLine($" {2} --> indice : {BinarySearch(tableau, 2)} ");
             Console.WriteLine($" {8} --> non trouvé : {BinarySearch(tableau, 8)} ");
 
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("Exercice 2 : Bases du calcul matriciel ");
+            Console.WriteLine();
+            Console.WriteLine("Construction matricielle : ");
 
+            int[] leftVector = { 1, 2, 3};
+            int[] rightVector = { -1, -4, 0 };
+            int[][] mRes = BuildingMatrix(leftVector, rightVector);
 
+            DisplayMatrix(mRes);
+
+            Console.WriteLine();
+            Console.WriteLine("Addition matricielle : ");
+            int[][] leftMatrix = {new int[] { 1, 2 }, new int[] { 4, 6 }, new int[] { -1, 8 } };
+            int[][] rightMatrix = { new int[] { -1, 5 }, new int[] { -4, 0 }, new int[] { 0, 2 } };
+
+            DisplayMatrix(Addition(leftMatrix,rightMatrix));
+
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.WriteLine("Soustraction matricielle : ");
+
+            DisplayMatrix(Substraction(leftMatrix, rightMatrix));
+
+            Console.WriteLine();
 
             Console.ReadKey();
 
@@ -375,6 +400,82 @@ namespace FormationC_Hajer
 
         }
 
+        // EXERCICE II - BASES DU CALCUL MATRICIEL
+
+        // Construction matricielle : 
+
+        static int[][] BuildingMatrix(int[] leftVector, int[] rightVector)
+        {
+            int[][] mRes = new int [leftVector.Length][];
+
+            for (int i = 0; i < leftVector.Length; i++)
+            {
+                mRes[i] = new int[rightVector.Length];
+
+                for (int j = 0; j < rightVector.Length; j++)
+                {
+                    mRes[i][j] = rightVector[j] * leftVector[i];
+                   
+                }
+
+            }
+            return mRes;
+
+        }
+
+        static void DisplayMatrix(int[][] matrice)
+        {
+            int lignes = matrice.Length;
+            int cols = matrice[0].Length;
+
+            for (int i = 0; i < lignes; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write((matrice[i][j]) + " ");
+                }
+                Console.WriteLine();
+            }
+
+        }
+
+        //  Addition matricielle :
+
+        static int[][] Addition(int[][] leftMatrix, int[][] rightMatrix)
+        {
+            int[][] mRes = new int[leftMatrix.Length][];
+
+            for (int i = 0; i < rightMatrix.Length; i++)
+            {
+                mRes[i] = new int[rightMatrix[0].Length];
+
+                for (int j = 0; j < rightMatrix[0].Length; j++)
+                {
+                    mRes[i][j] = leftMatrix[i][j] + rightMatrix[i][j];
+                }
+            
+            }
+            return mRes;
+        }
+
+        //  Soustraction matricielle :
+
+        static int[][] Substraction(int[][] leftMatrix, int[][] rightMatrix)
+        {
+            int[][] mRes = new int[leftMatrix.Length][];
+
+            for (int i = 0; i < rightMatrix.Length; i++)
+            {
+                mRes[i] = new int[rightMatrix[0].Length];
+
+                for (int j = 0; j < rightMatrix[0].Length; j++)
+                {
+                    mRes[i][j] = leftMatrix[i][j] - rightMatrix[i][j];
+                }
+
+            }
+            return mRes;
+        }
 
 
     }

@@ -543,8 +543,35 @@ namespace FormationC_Hajer
                 }
             }
         }
-  
-            
+
+        // ------------------------ SERIE IV --------------------------- //
+
+        // EXERCICE II - CONTRÔLE DES PARENTHESES
+
+      /*  static bool BracketsControls(string sentence)
+        {
+            Stack<char> parentèses = new Stack<char>();
+
+            foreach (char charactères in sentence)
+            {
+                if (sentence.Contains('('))
+                {
+                    parentèses.Push('(');
+                }
+                if (sentence.Contains('{'))
+                {
+                    parentèses.Push('{');
+                }
+                if (sentence.Contains('['))
+                {
+                    parentèses.Push('[');
+                }
+
+            }
+
+
+        }*/
+   
     }
 
 

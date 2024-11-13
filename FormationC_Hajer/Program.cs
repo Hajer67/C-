@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace FormationC_Hajer
 {
@@ -120,6 +121,36 @@ namespace FormationC_Hajer
 
             Console.WriteLine();
 
+            Console.WriteLine();
+            Console.WriteLine("Multiplication matricielle : ");
+            int[][] leftMatrixMult = { new int[] { 1, 2 }, new int[] { 4, 6 }, new int[] { -1, 8 } };
+            int[][] rightMatrixMult = { new int[] { -1, 5, 0 }, new int[] { -4, 0, 1 } };
+
+            try
+            {
+                DisplayMatrix(Multiplication(leftMatrixMult, rightMatrixMult));
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            Console.WriteLine();
+            Console.WriteLine("SERIE III ");
+            Console.WriteLine();
+            Console.WriteLine("Exercice 1 - Conseil de classe ");
+            Console.WriteLine();
+
+            try
+            {
+                SchoolMeans(@"C:\Users\User\Desktop\Formation C#\C-\FormationC_Hajer\Notes.csv", @"C:\Users\User\Desktop\Formation C#\C-\FormationC_Hajer\Moyenne.csv");
+                Console.WriteLine("Execution réussie, fichier Moyenne créé.");
+            }
+            catch(FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
+            Console.WriteLine();
             Console.ReadKey();
 
         }
@@ -439,25 +470,84 @@ namespace FormationC_Hajer
 
         //  Multiplication matricielle :
 
-      /*  static int[][] Multiplication(int[][] leftMatrix, int[][] rightMatrix)
+        static int[][] Multiplication(int[][] leftMatrix, int[][] rightMatrix)
         {
-            int[][] mRes = new int[leftMatrix.Length][];
+            int lignesLeft = leftMatrix.Length;
+            int colsLeft = leftMatrix[0].Length;
+            int lignesRight = rightMatrix.Length;
+            int colsRight = rightMatrix[0].Length;
 
-            for (int i = 0; i < rightMatrix.Length; i++)
+            if ( colsLeft != lignesRight)
             {
-                mRes[i] = new int[rightMatrix[0].Length];
+                throw new ArgumentException($"Dimensions des matrices incompatibles leftMatrix : {colsLeft} et rightMatrix : {lignesRight}.");
+            }
 
-                for (int j = 0; j < rightMatrix[0].Length; j++)
+            int[][] mRes = new int[lignesLeft][];
+
+            for (int i = 0; i < lignesLeft; i++)
+            {
+                mRes[i] = new int[colsRight];
+
+                for (int j = 0; j < colsRight; j++)
                 {
-                    mRes[i][j] = leftMatrix[i][j] - rightMatrix[i][j];
+                    int somme = 0;
+                    for (int k = 0; k < colsLeft; k++)
+                    {
+                        somme += leftMatrix[i][k] * rightMatrix[k][j];
+                    }
+                    mRes[i][j] = somme;
                 }
             }
             return mRes; 
-        } */
+        }
 
+        // ------------------------ SERIE III --------------------------- //
+
+        // EXERCICE I - CONSEIL DE CLASSE
+   
+        static void SchoolMeans(string input, string output)
+        {
+            if (!File.Exists(input))
+            {
+                throw new FileNotFoundException("Fichier d'entrée non trouvé", input);
+            }
+
+            Dictionary <string, double> notes = new Dictionary <string, double>();
+            Dictionary<string, int> compteurs = new Dictionary<string, int>();
+
+            using (FileStream fs = File.OpenRead(input))
+            using(StreamReader lecNotes =  new StreamReader(fs))
+            {
+                while(!lecNotes.EndOfStream)
+                {
+                    string[] lignesNotes = lecNotes.ReadLine().Split(';');
+                    if(notes.ContainsKey(lignesNotes[1]))
+                    {
+                        notes[lignesNotes[1]] += double.Parse(lignesNotes[2]);
+                        compteurs[lignesNotes[1]]++;
+                    }
+                    else
+                    {
+                        notes.Add(lignesNotes[1], double.Parse(lignesNotes[2]));
+                        compteurs.Add(lignesNotes[1], 1);
+                    }
+                }
+            }
+            using(FileStream fsOut = File.Create(output))
+            using (StreamWriter ecNotes = new StreamWriter(fsOut))
+            {
+                foreach (var note in notes)
+                {
+                    double moyenne = note.Value / compteurs[note.Key];
+                    ecNotes.WriteLine($"{note.Key};{moyenne :##.0}");
+                }
+            }
+        }
+  
+            
     }
 
-        
+
 }
 
 

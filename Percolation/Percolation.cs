@@ -44,7 +44,7 @@ namespace Percolation
         public bool Percolate()
         {
             int i = _full.Length - 1;
-            for (int j=0 ; j < _full.Length - 1; j++)
+            for (int j=0 ; j < _full.Length - 1; j++) // _full.Length tout court avec le stictement
             {
                 if (_full[i,j] == true)
                 {
@@ -58,19 +58,19 @@ namespace Percolation
         {
             List<KeyValuePair<int, int>> Voisins = new List<KeyValuePair<int, int>>();
 
-            if (i-1 > 0)
+            if (i-1 > 0) // i > 0
             {
                 Voisins.Add(new KeyValuePair<int, int>(i-1 , j));
             }
-            if (i+1 < _size -1)
+            if (i+1 < _size -1) // i < _size - 1
             {
                 Voisins.Add(new KeyValuePair<int, int>(i + 1, j));
             }
-            if (j-1 > 0)
+            if (j-1 > 0) // j > 0 
             {
                 Voisins.Add(new KeyValuePair<int, int>(i, j -1));
             }
-            if (j+1 < _size - 1)
+            if (j+1 < _size - 1) // j < _size - 1
             {
                 Voisins.Add(new KeyValuePair<int, int>(i, j +1));
             }

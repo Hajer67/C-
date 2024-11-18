@@ -29,6 +29,8 @@ namespace Percolation
             double somme = 0;
             double moyenne = 0;
 
+            // le petit souci avec cette implémentation est de séparer la moyenne du calcul de l'écart-type. 
+
             for (int i = 0; i < t; i++)
             {
                 somme += PercolationValue(size);

@@ -149,8 +149,23 @@ namespace FormationC_Hajer
             {
                 Console.WriteLine(ex.ToString());
             }
-            
+
             Console.WriteLine();
+            Console.WriteLine("SERIE IV ");
+            Console.WriteLine();
+            Console.WriteLine("Exercice 2 - Contrôle des parenthèses ");
+            Console.WriteLine();
+            string sentence = "{Gaetan préfère le COBOL (c'est dur le C# !) Il s'écria [Irridia me manque...]}";
+            if (BracketsControls(sentence))
+            {
+                Console.WriteLine(sentence);
+            }
+            else
+            {
+                Console.WriteLine("Relis ta phrase et refléchis avant d'écrire !");
+            }
+            Console.WriteLine();
+
             Console.ReadKey();
 
         }
@@ -512,7 +527,7 @@ namespace FormationC_Hajer
                 throw new FileNotFoundException("Fichier d'entrée non trouvé", input);
             }
 
-            Dictionary <string, double> notes = new Dictionary <string, double>();
+            Dictionary<string, double> notes = new Dictionary<string, double>();
             Dictionary<string, int> compteurs = new Dictionary<string, int>();
 
             using (FileStream fs = File.OpenRead(input))
@@ -548,30 +563,78 @@ namespace FormationC_Hajer
 
         // EXERCICE II - CONTRÔLE DES PARENTHESES
 
-      /*  static bool BracketsControls(string sentence)
+        static bool BracketsControls(string sentence)
         {
             Stack<char> parentèses = new Stack<char>();
 
-            foreach (char charactères in sentence)
+            foreach (char charactère in sentence)
             {
-                if (sentence.Contains('('))
+                if (charactère == '(' || charactère == '{' || charactère == '[')
                 {
-                    parentèses.Push('(');
+                    parentèses.Push(charactère);
                 }
-                if (sentence.Contains('{'))
+                else if (charactère == ')' || charactère == '}' || charactère == ']')
                 {
-                    parentèses.Push('{');
+                    if (parentèses.Count == 0)
+                    {
+                        return false;
+                    }
+
+                    char open = parentèses.Pop();
+                    if (open == '(' && charactère != ')')
+                    {
+                        return false;
+                    }
+                    else if (open == '{' && charactère != '}')
+                    {
+                        return false;
+                    }
+                    else if (open == '[' && charactère != ']')
+                    {
+                        return false;
+                    }
                 }
-                if (sentence.Contains('['))
+            }
+            return true;
+        }
+    
+        // Exercice III - Liste des contacts téléphoniques
+    
+        struct PhoneBook
+        {
+            private Dictionary<string, string> _annuaire; 
+
+            bool IsValidPhoneNumber (string phoneNumber)
+            {
+                if (phoneNumber.Length != 10 || phoneNumber[0] != 0 || phoneNumber[1] == 0)
                 {
-                    parentèses.Push('[');
+                    return false;
+                }
+                foreach (char nombre in phoneNumber)
+                {
+                    if (!char.IsDigit(nombre))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            bool ContainsPhoneContact(string phoneNumber)
+            {
+                return _annuaire.ContainsKey(phoneNumber);
+
+            }
+            void PhoneContact (string phoneNumber)
+            {
+                if (!_annuaire.ContainsKey(phoneNumber))
+                {
+
                 }
 
             }
 
-
-        }*/
-   
+        }
+  
     }
 
 

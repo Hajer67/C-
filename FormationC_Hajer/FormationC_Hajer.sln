@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.35325.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormationC_Hajer", "FormationC_Hajer.csproj", "{4609DBF0-60EF-4DA0-B26D-11807A596747}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percolation", "..\Percolation\Percolation.csproj", "{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projet  Partie 1", "..\Projet  Partie 1\Projet  Partie 1.csproj", "{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4609DBF0-60EF-4DA0-B26D-11807A596747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

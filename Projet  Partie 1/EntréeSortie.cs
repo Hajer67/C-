@@ -9,22 +9,22 @@ namespace Projet__Partie_1
 {
     class EntréeSortie
     {
-        public static Dictionary<uint,CompteBancaire> FichierComptes (string comptes)
+        public const string fichierComptes = @"C:\Users\User\Desktop\Formation C#\C-\Projet  Partie 1\Comptes";
+        public static Dictionary<uint,CompteBancaire> FichierComptes()
         {
-            if (!File.Exists(comptes))
+            if (!File.Exists(fichierComptes))
             {
-                throw new FileNotFoundException("Fichier d'entrée non trouvé", comptes);
+                throw new FileNotFoundException("Fichier d'entrée non trouvé", fichierComptes);
             }
+            Dictionary<uint, CompteBancaire> comptes = new Dictionary<uint, CompteBancaire>();
 
-            Dictionary<uint, CompteBancaire> compte = new Dictionary<uint, CompteBancaire>();
-
-            using (FileStream fsComptes = File.OpenRead(comptes))
-            using (StreamReader lecComptes = new StreamReader(fsComptes))
+            using (FileStream fsComptes = File.OpenRead(fichierComptes))
+            using (StreamReader lectureComptes = new StreamReader(fsComptes))
             {
-                while (!lecComptes.EndOfStream)
+                while (!lectureComptes.EndOfStream)
                 {
                     decimal solde;
-                    string[] lignesComptes = lecComptes.ReadLine().Split(';');
+                    string[] lignesComptes = lectureComptes.ReadLine().Split(';');
 
                     if (lignesComptes.Length != 2)
                     { 
@@ -70,37 +70,36 @@ namespace Projet__Partie_1
                         continue;
                     }
 
-                    if (compte.ContainsKey(identifiant)) 
+                    if (comptes.ContainsKey(identifiant)) 
                     {
                         continue;
                     }
                     else
                     {
-                        compte.Add(identifiant, new CompteBancaire(identifiant,solde));
+                        comptes.Add(identifiant, new CompteBancaire(identifiant,solde));
                     }
                 }
-                return compte;
+                return comptes;
             }
 
         }
 
-
-        public static Dictionary<uint, Transactions> FichierTransactions(string transactions)
+        public static Dictionary<uint, Transactions> FichierTransactions(string fichierTransactions)
         {
-            if (!File.Exists(transactions))
+            if (!File.Exists(fichierTransactions))
             {
-                throw new FileNotFoundException("Fichier d'entrée non trouvé", transactions);
+                throw new FileNotFoundException("Fichier d'entrée non trouvé", fichierTransactions);
             }
 
-            Dictionary<uint, CompteBancaire> transaction = new Dictionary<uint, CompteBancaire>();
+            Dictionary<uint, Transactions> transactions = new Dictionary<uint, Transactions>();
 
-            using (FileStream fsTransactions = File.OpenRead(transactions))
-            using (StreamReader lecTransactions = new StreamReader(fsTransactions))
+            using (FileStream fsTransactions = File.OpenRead(fichierTransactions))
+            using (StreamReader lectureTransactions = new StreamReader(fsTransactions))
             {
-                while (!lecTransactions.EndOfStream)
+                while (!lectureTransactions.EndOfStream)
                 {
                     decimal montant;
-                    string[] lignesTransactions = lecTransactions.ReadLine().Split(';');
+                    string[] lignesTransactions = lectureTransactions.ReadLine().Split(';');
 
                     if (lignesTransactions.Length != 4)
                     {
@@ -153,18 +152,30 @@ namespace Projet__Partie_1
                         continue;
                     }
 
-                    if (transaction.ContainsKey(identifiant))
+                    if (transactions.ContainsKey(identifiant))
                     {
                         continue;
                     }
                     else
                     {
-                        transaction.Add(identifiant, new Transactions(identifiant, montant, expéditeur, destintaire));
+                        transactions.Add(identifiant, new Transactions(identifiant, montant, expéditeur, destintaire));
                     }
                 }
-                return transaction;
+                return transactions;
             }
 
+        }
+
+        public void fichierStatusTransactions(Dictionary<uint, string> statutsTransactions)
+        {
+            using (FileStream fsOut = File.Create(@"C:\Users\User\Desktop\Formation C#\C-\Projet  Partie 1\Statuts Transactions"))
+            using (StreamWriter ecritureTransactions = new StreamWriter(fsOut))
+            {
+                foreach (var statutsTransaction in statutsTransactions)
+                {
+                    ecritureTransactions.WriteLine($"{statutsTransaction.Key};{statutsTransaction.Value}");
+                }
+            }
         }
 
     }

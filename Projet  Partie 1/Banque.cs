@@ -8,5 +8,6 @@ namespace Projet__Partie_1
 {
     class Banque
     {
+        Dictionary<uint, CompteBancaire> comptes = EntréeSortie.FichierComptes();
     }
 }

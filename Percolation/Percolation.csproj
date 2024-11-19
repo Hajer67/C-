@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A987F4C2-BE6D-48BE-B70B-54C1487FE35E}</ProjectGuid>
+    <ProjectGuid>{8C0A6D2D-8B97-4DFE-8859-13EE0F12B4FE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Projet__Partie_1</RootNamespace>
-    <AssemblyName>Projet  Partie 1</AssemblyName>
+    <RootNamespace>Percolation</RootNamespace>
+    <AssemblyName>Percolation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,17 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banque.cs" />
-    <Compile Include="EntréeSortie.cs" />
-    <Compile Include="CompteBancaire.cs" />
+    <Compile Include="Percolation.cs" />
+    <Compile Include="PercolationSimulation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transactions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Comptes.csv" />
-    <None Include="Transactions.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

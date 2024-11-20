@@ -10,7 +10,9 @@ namespace Projet__Partie_1
     {
         static void Main(string[] args)
         {
-       
+            Banque banque = new Banque();
+            banque.GestionTransactions();
+            Console.ReadKey();
         }
     }
 }

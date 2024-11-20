@@ -9,41 +9,41 @@ namespace Projet__Partie_1
 {
     class CompteBancaire
     {
-        public uint Identifiant { get; private set; }
+        public uint IdentifiantCompte { get; private set; }
 
         public decimal Solde { get; private set; }
         
         private const decimal _maxRetrait = 1000;
-        private List <decimal> _historiqueTransactions;
+        private List <decimal> _historiqueRetrait;
         
-        public CompteBancaire(uint identifiant, decimal solde)
+        public CompteBancaire(uint identifiantCompte, decimal solde)
         {
-            Identifiant = identifiant;
+            IdentifiantCompte = identifiantCompte;
             Solde = solde;
-            _historiqueTransactions = new List<decimal>();
+            _historiqueRetrait = new List<decimal>();
         }
 
-        public decimal SommeTransactions(decimal transaction)
+        private decimal SommeRetraits(decimal transaction)
         {
-            decimal sommeTransactions = transaction;
+            decimal sommeRetraits = transaction;
 
-            foreach (decimal montant in _historiqueTransactions)
+            foreach (decimal montant in _historiqueRetrait)
             {
-                sommeTransactions += montant;
+                sommeRetraits += montant;
             }
-            return sommeTransactions;
+            return sommeRetraits;
         }
     
-        private void NouvelleTransaction(decimal montant)
+        private void NouveauRetrait(decimal montant)
         {
-            if (_historiqueTransactions.Count < 9)
+            if (_historiqueRetrait.Count < 9)
             {
-                _historiqueTransactions.Add(montant);
+                _historiqueRetrait.Add(montant);
             }
             else
             {
-                _historiqueTransactions.RemoveAt(0);
-                _historiqueTransactions.Add(montant);
+                _historiqueRetrait.RemoveAt(0);
+                _historiqueRetrait.Add(montant);
             }
         }
     
@@ -58,15 +58,23 @@ namespace Projet__Partie_1
     
         public bool IsWithdrawalValid(decimal montant)
         {
-            if (montant <= 0 || Solde < montant || SommeTransactions(montant) >= _maxRetrait)
+            if (montant <= 0 || Solde < montant || SommeRetraits(montant) >= _maxRetrait)
             {
                 return false;
             }
             return true;
         }
-    
-        public void 
-    
-    
+
+        public void Deposit(decimal montant)
+        {
+            Solde += montant;
+        }
+
+        public void Withdrawal(decimal montant)
+        {
+            Solde -= montant;
+            NouveauRetrait(montant);
+        }
+   
     }
 }

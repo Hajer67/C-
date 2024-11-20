@@ -9,7 +9,7 @@ namespace Projet__Partie_1
 {
     class EntréeSortie
     {
-        public const string fichierComptes = @"C:\Users\User\Desktop\Formation C#\C-\Projet  Partie 1\Comptes";
+        public const string fichierComptes = @"C:\Users\User\Documents\Entrée\Comptes.csv";
         public static Dictionary<uint,CompteBancaire> FichierComptes()
         {
             if (!File.Exists(fichierComptes))
@@ -136,22 +136,11 @@ namespace Projet__Partie_1
                         Console.WriteLine("L'expéditeur demandé n'existe pas.");
                         continue;
                     }
-                    if (expéditeur == 0)
-                    {
-                        Console.WriteLine("L'esxpéditeur ne peut pas être égal à zéro.");
-                        continue;
-                    }
                     if (!uint.TryParse(lignesTransactions[3], out uint destintaire))
                     {
                         Console.WriteLine("Le destinataire demandé n'existe pas.");
                         continue;
                     }
-                    if (destintaire == 0)
-                    {
-                        Console.WriteLine("Le destinataire ne peut pas être égal à zéro.");
-                        continue;
-                    }
-
                     if (transactions.ContainsKey(identifiant))
                     {
                         continue;
@@ -166,14 +155,14 @@ namespace Projet__Partie_1
 
         }
 
-        public void fichierStatusTransactions(Dictionary<uint, string> statutsTransactions)
+        public static void fichierStatusTransactions(Dictionary<uint, Transactions> statutsTransactions)
         {
-            using (FileStream fsOut = File.Create(@"C:\Users\User\Desktop\Formation C#\C-\Projet  Partie 1\Statuts Transactions"))
+            using (FileStream fsOut = File.Create(@"C:\Users\User\Documents\Sortie\Statuts Transactions.csv"))
             using (StreamWriter ecritureTransactions = new StreamWriter(fsOut))
             {
                 foreach (var statutsTransaction in statutsTransactions)
                 {
-                    ecritureTransactions.WriteLine($"{statutsTransaction.Key};{statutsTransaction.Value}");
+                    ecritureTransactions.WriteLine($"{statutsTransaction.Key};{statutsTransaction.Value.StatutsTransaction}");
                 }
             }
         }

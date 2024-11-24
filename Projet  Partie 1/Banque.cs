@@ -14,7 +14,7 @@ namespace Projet__Partie_1
         public Banque()
         {
             _comptes = EntréeSortie.FichierComptes();
-            _transactions = EntréeSortie.FichierTransactions(@"C:\Users\User\Documents\Entrée\Transactions.csv");
+            _transactions = EntréeSortie.FichierTransactions(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Transactions_2.txt");
         }
 
         public void GestionTransactions()
@@ -35,12 +35,30 @@ namespace Projet__Partie_1
             }
             else if (transaction.IdentifiantDestinataire == 0)
             {
-                return GestionRetrait(transaction, _comptes[transaction.IdentifiantExpéditeur]);
-               
+                // Vérification que l'expéditeur existe
+                if (_comptes.ContainsKey(transaction.IdentifiantExpéditeur))
+                {
+                    return GestionRetrait(transaction, _comptes[transaction.IdentifiantExpéditeur]);
+                }
+                else
+                {
+                    Console.WriteLine("Expéditeur inexistant.");
+                    return false;
+                }
             }
             else if (transaction.IdentifiantExpéditeur == 0)
             {
-                return GestionDépot(transaction, _comptes[transaction.IdentifiantDestinataire]);
+                // Vérification que le destinataire existe
+                if (_comptes.ContainsKey(transaction.IdentifiantDestinataire))
+                {
+                    return GestionDépot(transaction, _comptes[transaction.IdentifiantDestinataire]);
+                }
+                else
+                {
+                    Console.WriteLine("Destinataire inexistant.");
+                    return false;
+                }
+
             }
             else
             {

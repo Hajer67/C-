@@ -9,8 +9,8 @@ namespace Projet__Partie_1
 {
     class EntréeSortie
     {
-        public const string fichierComptes = @"C:\Users\User\Documents\Entrée\Comptes.csv";
-        public static Dictionary<uint,CompteBancaire> FichierComptes()
+        public const string fichierComptes = @"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Comptes_2.txt";
+        public static Dictionary<uint, CompteBancaire> FichierComptes()
         {
             if (!File.Exists(fichierComptes))
             {
@@ -27,13 +27,13 @@ namespace Projet__Partie_1
                     string[] lignesComptes = lectureComptes.ReadLine().Split(';');
 
                     if (lignesComptes.Length != 2)
-                    { 
+                    {
                         Console.WriteLine("Le format de la ligne n'est pas correct.");
                         continue;
                     }
                     if (lignesComptes[1] == string.Empty)
                     {
-                       solde = 0;
+                        solde = 0;
                     }
                     else if (!decimal.TryParse(lignesComptes[1], out solde))
                     {
@@ -70,13 +70,13 @@ namespace Projet__Partie_1
                         continue;
                     }
 
-                    if (comptes.ContainsKey(identifiant)) 
+                    if (comptes.ContainsKey(identifiant))
                     {
                         continue;
                     }
                     else
                     {
-                        comptes.Add(identifiant, new CompteBancaire(identifiant,solde));
+                        comptes.Add(identifiant, new CompteBancaire(identifiant, solde));
                     }
                 }
                 return comptes;
@@ -157,7 +157,7 @@ namespace Projet__Partie_1
 
         public static void fichierStatusTransactions(Dictionary<uint, Transactions> statutsTransactions)
         {
-            using (FileStream fsOut = File.Create(@"C:\Users\User\Documents\Sortie\Statuts Transactions.csv"))
+            using (FileStream fsOut = File.Create(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Statuts_2_HJ.txt"))
             using (StreamWriter ecritureTransactions = new StreamWriter(fsOut))
             {
                 foreach (var statutsTransaction in statutsTransactions)

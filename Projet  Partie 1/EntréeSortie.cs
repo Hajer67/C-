@@ -9,7 +9,7 @@ namespace Projet__Partie_1
 {
     class EntréeSortie
     {
-        public const string fichierComptes = @"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Comptes_2.txt";
+        public const string fichierComptes = @"C:\Users\Formation\Desktop\C#\PartieI\Comptes_1.txt";
         public static Dictionary<uint, CompteBancaire> FichierComptes()
         {
             if (!File.Exists(fichierComptes))
@@ -28,7 +28,7 @@ namespace Projet__Partie_1
 
                     if (lignesComptes.Length != 2)
                     {
-                        Console.WriteLine("Le format de la ligne n'est pas correct.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : Le format de la ligne n'est pas correct.");
                         continue;
                     }
                     if (lignesComptes[1] == string.Empty)
@@ -51,22 +51,22 @@ namespace Projet__Partie_1
                                   Console.WriteLine("Un charactère non numérique dans le solde a été détecté.");
                               }
                           }*/
-                        Console.WriteLine("Un charactère non numérique dans le solde a été détecté.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : Un charactère non numérique dans le solde a été détecté.");
                         continue;
                     }
                     if (solde < 0)
                     {
-                        Console.WriteLine("Le solde ne peut pas être négatif.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : Le solde ne peut pas être négatif.");
                         continue;
                     }
                     if (!uint.TryParse(lignesComptes[0], out uint identifiant))
                     {
-                        Console.WriteLine("L'identifiant demandé n'existe pas.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant demandé n'existe pas.");
                         continue;
                     }
                     if (identifiant == 0)
                     {
-                        Console.WriteLine("L'identifiant ne peut pas être égal à zéro.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant ne peut pas être égal à zéro.");
                         continue;
                     }
 
@@ -103,42 +103,42 @@ namespace Projet__Partie_1
 
                     if (lignesTransactions.Length != 4)
                     {
-                        Console.WriteLine("Le format de la ligne n'est pas correct.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le format de la ligne n'est pas correct : {lignesTransactions.Length}");
                         continue;
                     }
                     if (lignesTransactions[1] == string.Empty)
                     {
                         montant = 0;
-                        Console.WriteLine("Le montant de la transaction ne peut pas être égal à zéro.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le montant de la transaction ne peut pas être égal à zéro : {lignesTransactions[1]}");
                     }
                     else if (!decimal.TryParse(lignesTransactions[1], out montant))
                     {
-                        Console.WriteLine("Un charactère non numérique dans le montant de la transaction a été détecté.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Un charactère non numérique dans le montant de la transaction a été détecté.");
                         continue;
                     }
                     if (montant < 0)
                     {
-                        Console.WriteLine("Le montant de la transaction ne peut pas être négatif.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le montant de la transaction ne peut pas être négatif.");
                         continue;
                     }
                     if (!uint.TryParse(lignesTransactions[0], out uint identifiant))
                     {
-                        Console.WriteLine("L'identifiant demandé n'existe pas.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : L'identifiant demandé n'existe pas.");
                         continue;
                     }
                     if (identifiant == 0)
                     {
-                        Console.WriteLine("L'identifiant ne peut pas être égal à zéro.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : L'identifiant ne peut pas être égal à zéro.");
                         continue;
                     }
                     if (!uint.TryParse(lignesTransactions[2], out uint expéditeur))
                     {
-                        Console.WriteLine("L'expéditeur demandé n'existe pas.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : L'expéditeur demandé n'existe pas.");
                         continue;
                     }
                     if (!uint.TryParse(lignesTransactions[3], out uint destintaire))
                     {
-                        Console.WriteLine("Le destinataire demandé n'existe pas.");
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le destinataire demandé n'existe pas.");
                         continue;
                     }
                     if (transactions.ContainsKey(identifiant))
@@ -157,7 +157,7 @@ namespace Projet__Partie_1
 
         public static void fichierStatusTransactions(Dictionary<uint, Transactions> statutsTransactions)
         {
-            using (FileStream fsOut = File.Create(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Statuts_2_HJ.txt"))
+            using (FileStream fsOut = File.Create(@"C:\Users\Formation\Desktop\C#\PartieI\Statuts_b.txt"))
             using (StreamWriter ecritureTransactions = new StreamWriter(fsOut))
             {
                 foreach (var statutsTransaction in statutsTransactions)

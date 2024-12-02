@@ -14,7 +14,7 @@ namespace Projet__Partie_1
         public Banque()
         {
             _comptes = EntréeSortie.FichierComptes();
-            _transactions = EntréeSortie.FichierTransactions(@"C:\Users\Formation\source\repos\Corrections\Moi\Corrigés\Corrigés\PartieI\Transactions_2.txt");
+            _transactions = EntréeSortie.FichierTransactions(@"C:\Users\Formation\Desktop\C#\PartieI\Transactions_1.txt");
         }
 
         public void GestionTransactions()

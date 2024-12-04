@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Projet_partie_2
 {
@@ -25,32 +26,22 @@ namespace Projet_partie_2
                 {
                     decimal solde;
                     string[] lignesComptes = lectureComptes.ReadLine().Split(';');
+                    CultureInfo fr = new CultureInfo("fr-FR");
+                    DateTime date;
+                    uint entrée;
+                    uint sortie;
 
-                    if (lignesComptes.Length != 2)
+                    if (lignesComptes.Length != 5)
                     {
                         Console.WriteLine($"Compte {lignesComptes[0]} : Le format de la ligne n'est pas correct.");
                         continue;
                     }
-                    if (lignesComptes[1] == string.Empty)
+                    if (lignesComptes[2] == string.Empty)
                     {
                         solde = 0;
                     }
-                    else if (!decimal.TryParse(lignesComptes[1], out solde))
+                    else if (!decimal.TryParse(lignesComptes[2], out solde))
                     {
-                        /*  foreach (char id in lignesComptes[0])
-                          {
-                              if (!char.IsDigit(id))
-                              {
-                                  Console.WriteLine("Un charactère non numérique dans l'identifiant a été détecté.");
-                              }
-                          }
-                          foreach (char nombre in lignesComptes[1])
-                          {
-                              if (!char.IsDigit(nombre) && nombre != '.')
-                              {
-                                  Console.WriteLine("Un charactère non numérique dans le solde a été détecté.");
-                              }
-                          }*/
                         Console.WriteLine($"Compte {lignesComptes[0]} : Un charactère non numérique dans le solde a été détecté.");
                         continue;
                     }
@@ -69,19 +60,27 @@ namespace Projet_partie_2
                         Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant ne peut pas être égal à zéro.");
                         continue;
                     }
-
+                    if (!DateTime.TryParseExact(lignesComptes[1],"d",fr,DateTimeStyles.None, out date))
+                    {
+                        Console.WriteLine($"Compte {lignesComptes[1]} : La date renseignée est incorrecte.");
+                        continue;
+                    }
+                    if (lignesComptes[3] == string.Empty)
+                    {
+                        
+                    }
+        
                     if (comptes.ContainsKey(identifiant))
                     {
                         continue;
                     }
                     else
                     {
-                        comptes.Add(identifiant, new CompteBancaire(identifiant, solde));
+                        comptes.Add(identifiant, new CompteBancaire(identifiant, date, solde, entrée, sortie));
                     }
                 }
                 return comptes;
             }
-
         }
 
         public static Dictionary<uint, Transactions> FichierTransactions(string fichierTransactions)

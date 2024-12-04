@@ -12,7 +12,10 @@ namespace Projet_partie_2
 
         public decimal Solde { get; private set; }
 
-        private const decimal _maxRetrait = 1000;
+        private const decimal _maxRetrait = 2000;
+        private const DateTime.Equals(_dateCréation,_dateRésiliation)
+        private DateTime _dateCréation;
+        private DateTime _dateRésiliation;
         private List<decimal> _historiqueRetrait;
 
         public CompteBancaire(uint identifiantCompte, decimal solde)

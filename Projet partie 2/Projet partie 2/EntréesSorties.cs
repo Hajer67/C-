@@ -76,7 +76,7 @@ namespace Projet_partie_2
                     }
                     else
                     {
-                        comptes.Add(identifiant, new CompteBancaire(identifiant, date, solde, entrée, sortie));
+                        comptes.Add(identifiant, new CompteBancaire(identifiant, solde, 10, date));
                     }
                 }
                 return comptes;

@@ -15,6 +15,7 @@ namespace Projet_partie_2
         public uint NombreTransactionsMax { get; set; }
 
         private const decimal _maxRetrait = 1000;
+        private const decimal _maxRetraitHebdomadaire = 2000;
         private TimeSpan _periodeRetraitMax = new TimeSpan(7, 0, 0, 0);
         private List<decimal> _historiqueRetrait;
         private Dictionary<decimal, DateTime> _historiqueHebdomadaire;
@@ -30,9 +31,13 @@ namespace Projet_partie_2
             _historiqueHebdomadaire= new Dictionary<decimal, DateTime>();
         }
 
-        private decimal SommeRetraits(decimal transaction)
+        private decimal SommeRetraits(decimal retrait)
         {
-            decimal sommeRetraits = transaction;
+            decimal sommeRetraits = retrait;
+            for (int i = 0; i < NombreTransactionsMax - 1 && i <_historiqueRetrait.Count(); i++)
+            {
+                sommeRetraits += _historiqueRetrait[i];
+            }
 
             foreach (decimal montant in _historiqueRetrait)
             {
@@ -41,23 +46,34 @@ namespace Projet_partie_2
             return sommeRetraits;
         }
 
-      /*  private decimal SommeRetraitsHebdomadaire(decimal transaction) 
-        {
-            decimal sommeRetraits 
-        }
-      */
 
         private void NouveauRetrait(decimal montant)
         {
-            if (_historiqueRetrait.Count < 9)
+            if (NombreTransactionsMax != 1)
             {
-                _historiqueRetrait.Add(montant);
-            }
-            else
-            {
-                _historiqueRetrait.RemoveAt(0);
-                _historiqueRetrait.Add(montant);
-            }
+                if (_historiqueRetrait.Count() < NombreTransactionsMax - 1)
+                {
+                    _historiqueRetrait.Add(montant);
+                }
+                else if (_historiqueRetrait.Count() == NombreTransactionsMax - 1)
+                {
+                    _historiqueRetrait.RemoveAt(0);
+                    _historiqueRetrait.Add(montant);
+                }
+                else
+                {
+                    while (_historiqueRetrait.Count() >= NombreTransactionsMax - 1)
+                    {
+                        _historiqueRetrait.RemoveAt(0);
+                    }
+                    _historiqueRetrait.Add(montant);
+                }
+            }  
+        }
+
+        private void NouveauRetraitsHebdomadaire(decimal retrait, DateTime dateEffet)
+        {
+            _historiqueHebdomadaire.Add(retrait, dateEffet);
         }
 
         public bool IsDepositValid(Transactions transactions)
@@ -83,10 +99,11 @@ namespace Projet_partie_2
             Solde += montant;
         }
 
-        public void Withdrawal(decimal montant)
+        public void Withdrawal(decimal montant, DateTime dateEffet)
         {
             Solde -= montant;
             NouveauRetrait(montant);
+            NouveauRetraitsHebdomadaire(montant, dateEffet);
         }
 
     }

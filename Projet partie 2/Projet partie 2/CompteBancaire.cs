@@ -46,6 +46,42 @@ namespace Projet_partie_2
             return sommeRetraits;
         }
 
+        public bool RetraitMaxAtteint(decimal retrait)
+        {
+            decimal totalRetrait = SommeRetraits(retrait);
+
+            if (totalRetrait > _maxRetrait)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        private decimal SommeRetraitsHebdomadaire(decimal montant, DateTime dateEffet)
+        {
+            decimal sommeRetraitsHebdomadaire = montant;
+        
+            foreach (KeyValuePair<decimal, DateTime> retrait in _historiqueHebdomadaire)
+            {
+                if (retrait.Value <= dateEffet && dateEffet - retrait.Value < _periodeRetraitMax && retrait.Value >= DateCréation && retrait.Value < DateRésiliation)
+                {
+                    sommeRetraitsHebdomadaire += retrait.Key;
+                }
+            }
+            return sommeRetraitsHebdomadaire;
+        }
+
+        public bool RetraitHebdomadaireMaxAtteint(decimal retrait, DateTime dateEffet)
+        {
+            decimal totalRetraitHebdomadaire = SommeRetraitsHebdomadaire(retrait, dateEffet);
+
+            if (totalRetraitHebdomadaire > _maxRetraitHebdomadaire)
+            {
+                return true;
+            }
+            return false;
+        }
 
         private void NouveauRetrait(decimal montant)
         {

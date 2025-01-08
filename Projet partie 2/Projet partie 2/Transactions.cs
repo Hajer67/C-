@@ -9,7 +9,7 @@ namespace Projet_partie_2
     internal class Transactions
     {
         public uint IdentifiantTransaction { get; private set; }
-        public decimal Montant { get; set; }
+        public decimal Montant { get; private set; }
         public uint IdentifiantExpéditeur { get; set; }
         public uint IdentifiantDestinataire { get; set; }
         public string StatutsTransaction { get; set; }

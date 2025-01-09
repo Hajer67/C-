@@ -12,5 +12,15 @@ namespace Projet_partie_2
         public string Type { get; private set; }
         public int NombreTransactionsMax { get; private set; }
         public decimal FraisGestion { get; set; }
+    
+    
+    
+    
+    
+    
     }
+
+
+
+
 }

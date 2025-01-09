@@ -46,7 +46,7 @@ namespace Projet_partie_2
             return sommeRetraits;
         }
 
-        public bool RetraitMaxAtteint(decimal retrait)
+        private bool RetraitMaxAtteint(decimal retrait)
         {
             decimal totalRetrait = SommeRetraits(retrait);
 
@@ -58,23 +58,23 @@ namespace Projet_partie_2
         }
 
 
-        private decimal SommeRetraitsHebdomadaire(decimal montant, DateTime dateEffet)
+        private decimal SommeRetraitHebdomadaire(decimal montant, DateTime dateEffet)
         {
-            decimal sommeRetraitsHebdomadaire = montant;
+            decimal sommeRetraitHebdomadaire = montant;
         
             foreach (KeyValuePair<decimal, DateTime> retrait in _historiqueHebdomadaire)
             {
                 if (retrait.Value <= dateEffet && dateEffet - retrait.Value < _periodeRetraitMax && retrait.Value >= DateCréation && retrait.Value < DateRésiliation)
                 {
-                    sommeRetraitsHebdomadaire += retrait.Key;
+                    sommeRetraitHebdomadaire += retrait.Key;
                 }
             }
-            return sommeRetraitsHebdomadaire;
+            return sommeRetraitHebdomadaire;
         }
 
-        public bool RetraitHebdomadaireMaxAtteint(decimal retrait, DateTime dateEffet)
+        private bool RetraitHebdomadaireMaxAtteint(decimal retrait, DateTime dateEffet)
         {
-            decimal totalRetraitHebdomadaire = SommeRetraitsHebdomadaire(retrait, dateEffet);
+            decimal totalRetraitHebdomadaire = SommeRetraitHebdomadaire(retrait, dateEffet);
 
             if (totalRetraitHebdomadaire > _maxRetraitHebdomadaire)
             {
@@ -123,7 +123,7 @@ namespace Projet_partie_2
 
         public bool IsWithdrawalValid(Transactions transactions)
         {
-            if (transactions.Montant <= 0 || Solde < transactions.Montant || transactions.DateEffet >= DateCréation || transactions.DateEffet < DateRésiliation )
+            if (transactions.Montant <= 0 || Solde < transactions.Montant || transactions.DateEffet < DateCréation || transactions.DateEffet >= DateRésiliation || RetraitHebdomadaireMaxAtteint(transactions.Montant, transactions.DateEffet) || RetraitMaxAtteint(transactions.Montant) )
             {
                 return false;
             }

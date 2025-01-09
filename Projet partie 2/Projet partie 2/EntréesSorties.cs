@@ -52,24 +52,29 @@ namespace Projet_partie_2
                     }
                     if (!uint.TryParse(lignesComptes[0], out uint identifiant))
                     {
-                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant demandé n'existe pas.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant du compte demandé n'existe pas.");
                         continue;
                     }
                     if (identifiant == 0)
                     {
-                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant ne peut pas être égal à zéro.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant d'un compte ne peut pas être égal à zéro.");
                         continue;
                     }
                     if (!DateTime.TryParseExact(lignesComptes[1],"d",fr,DateTimeStyles.None, out date))
                     {
-                        Console.WriteLine($"Compte {lignesComptes[1]} : La date renseignée est incorrecte.");
+                        Console.WriteLine($"Compte {lignesComptes[0]} : La date renseignée est incorrecte.");
                         continue;
                     }
-                    if (lignesComptes[3] == string.Empty)
+                    if (!uint.TryParse(lignesComptes[3], out uint identifiant))
                     {
-                        
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant du gestionnaire en entrée demandé n'existe pas.");
+                        continue;
                     }
-        
+                     if (!uint.TryParse(lignesComptes[4], out uint identifiant))
+                    {
+                        Console.WriteLine($"Compte {lignesComptes[0]} : L'identifiant du gestionnaire en sortie demandé n'existe pas.");
+                        continue;
+                    }
                     if (comptes.ContainsKey(identifiant))
                     {
                         continue;
@@ -99,8 +104,10 @@ namespace Projet_partie_2
                 {
                     decimal montant;
                     string[] lignesTransactions = lectureTransactions.ReadLine().Split(';');
+                    CultureInfo fr = new CultureInfo("fr-FR");
+                    DateTime dateEffet;
 
-                    if (lignesTransactions.Length != 4)
+                    if (lignesTransactions.Length != 5)
                     {
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : Le format de la ligne n'est pas correct : {lignesTransactions.Length}");
                         continue;
@@ -110,7 +117,7 @@ namespace Projet_partie_2
                         montant = 0;
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : Le montant de la transaction ne peut pas être égal à zéro : {lignesTransactions[1]}");
                     }
-                    else if (!decimal.TryParse(lignesTransactions[1], out montant))
+                    else if (!decimal.TryParse(lignesTransactions[2], out montant))
                     {
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : Un charactère non numérique dans le montant de la transaction a été détecté.");
                         continue;
@@ -130,12 +137,17 @@ namespace Projet_partie_2
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : L'identifiant ne peut pas être égal à zéro.");
                         continue;
                     }
-                    if (!uint.TryParse(lignesTransactions[2], out uint expéditeur))
+                     if (!DateTime.TryParseExact(lignesTransactions[1],"d",fr,DateTimeStyles.None, out dateEffet))
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : La date renseignée est incorrecte.");
+                        continue;
+                    }
+                    if (!uint.TryParse(lignesTransactions[3], out uint expéditeur))
                     {
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : L'expéditeur demandé n'existe pas.");
                         continue;
                     }
-                    if (!uint.TryParse(lignesTransactions[3], out uint destintaire))
+                    if (!uint.TryParse(lignesTransactions[4], out uint destintaire))
                     {
                         Console.WriteLine($"Transaction {lignesTransactions[0]} : Le destinataire demandé n'existe pas.");
                         continue;
@@ -146,10 +158,85 @@ namespace Projet_partie_2
                     }
                     else
                     {
-                        transactions.Add(identifiant, new Transactions(identifiant, montant, expéditeur, destintaire));
+                        transactions.Add(identifiant, new Transactions(identifiant, montant, expéditeur, destintaire, dateEffet));
                     }
                 }
                 return transactions;
+            }
+
+        }
+
+         public static Dictionary<uint, Gestionnaire> FichierGestionnaires(string fichierGestionnaires)
+        {
+            if (!File.Exists(fichierGestionnaires))
+            {
+                throw new FileNotFoundException("Fichier d'entrée non trouvé", fichierGestionnaires);
+            }
+
+            Dictionary<uint, Gestionnaire> gestionnaires = new Dictionary<uint, Gestionnaire>();
+
+            using (FileStream fsGestionnaires = File.OpenRead(fichierGestionnaires))
+            using (StreamReader lectureGestionnaires = new StreamReader(fsGestionnaires))
+            {
+                while (!lectureGestionnaires.EndOfStream)
+                {
+                    string[] lignesGestionnaires = lectureGestionnaires.ReadLine().Split(';');
+                   
+                    if (lignesGestionnaires.Length != 3)
+                    {
+                        Console.WriteLine($"Gestionnaire {lignesGestionnaires[0]} : Le format de la ligne n'est pas correct : {lignesGestionnaires.Length}");
+                        continue;
+                    }
+                    if (lignesGestionnaires[1] == string.Empty || !string.TryParse(lignesGestionnaires[1], out string type))
+                    {
+                        Console.WriteLine($"Gestionnaire {lignesGestionnaires[0]} : Le gestionnaire demandé ne possède pas de type.");
+                        continue;
+                    }
+                    /*else if (!decimal.TryParse(lignesTransactions[2], out montant))
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Un charactère non numérique dans le montant de la transaction a été détecté.");
+                        continue;
+                    }
+                    if (montant < 0)
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le montant de la transaction ne peut pas être négatif.");
+                        continue;
+                    }*/
+                    if (!uint.TryParse(lignesGestionnaires[0], out uint identifiant))
+                    {
+                        Console.WriteLine($"Gestionnaire {lignesGestionnaires[0]} : L'identifiant du gestionnaire demandé n'existe pas.");
+                        continue;
+                    }
+                    if (identifiant == 0)
+                    {
+                        Console.WriteLine($"Gestionnaire {lignesGestionnaires[0]} : L'identifiant d'un gestionnaire ne peut pas être égal à zéro.");
+                        continue;
+                    }
+                   /*  if (!DateTime.TryParseExact(lignesTransactions[1],"d",fr,DateTimeStyles.None, out dateEffet))
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : La date renseignée est incorrecte.");
+                        continue;
+                    }
+                    if (!uint.TryParse(lignesTransactions[3], out uint expéditeur))
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : L'expéditeur demandé n'existe pas.");
+                        continue;
+                    }
+                    if (!uint.TryParse(lignesTransactions[4], out uint destintaire))
+                    {
+                        Console.WriteLine($"Transaction {lignesTransactions[0]} : Le destinataire demandé n'existe pas.");
+                        continue;
+                    }*/
+                    if (gestionnaires.ContainsKey(identifiant))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        gestionnaires.Add(identifiant, new Gestionnaire(identifiant, type, nombreTransactions));
+                    }
+                }
+                return gestionnaires; 
             }
 
         }
